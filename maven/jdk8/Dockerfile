@@ -2,7 +2,8 @@ FROM jenkins/inbound-agent:alpine as jnlp
 
 FROM maven:3.6.3-jdk-8-slim
 
-RUN apt-get update && \
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories \
+    apt-get update && \
     apt-get install -y \
         git \
         libfontconfig1 \
