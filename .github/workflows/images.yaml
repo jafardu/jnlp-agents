@@ -1,0 +1,54 @@
+name: jnlp-agents-docker-build-image
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+on:
+#   schedule:
+#     - cron: '38 9 * * *'
+  push:
+    paths:
+      - '.github/workflows/**'
+#     branches: [ master ]
+#     # Publish semver tags as releases.
+#     tags: [ 'v*.*.*' ]
+#   pull_request:
+#     branches: [ master ]
+
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: 9512220
+  # github.repository as <account>/<repo>
+  IMAGE_NAME: ${{ github.repository }}
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Login against a Docker registry except on PR
+      # https://github.com/docker/login-action
+      - name: 构建镜像
+        run: |
+          mkdir -p artifacts/images 
+          cd maven/jdk8/
+          docker build -t maven:v1 . 
+          docker save maven:v1  -o ../../artifacts/images/maven.tar
+          cd ..
+          cd node
+          docker build -t node:v1 .
+          docker save maven:v1  -o artifacts/images/node.tar
+      - uses: actions/upload-artifact@v2
+        with: 
+          name: images-tar
+          path:  artifacts/*
