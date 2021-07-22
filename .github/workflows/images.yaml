@@ -41,10 +41,6 @@ jobs:
       - name: 构建镜像
         run: |
           mkdir -p artifacts/images 
-          cd maven/jdk8/
-          docker build -t maven:v1 .
-          docker save maven:v1  -o ../../artifacts/images/maven.tar
-          cd ../../
           cd node
           docker build -t node:v1 .
           docker save maven:v1  -o artifacts/images/node.tar
