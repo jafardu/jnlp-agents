@@ -28,9 +28,9 @@ jobs:
   build:
 
     runs-on: ubuntu-18.04
-#     permissions:
-#       contents: read
-#       packages: write
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - name: Checkout repository
@@ -48,6 +48,7 @@ jobs:
           cd node
           docker build -t node:v1 .
           docker save maven:v1  -o artifacts/images/node.tar
+          cd ..
       - uses: actions/upload-artifact@v2
         with: 
           name: images-tar
