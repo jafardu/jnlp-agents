@@ -17,20 +17,20 @@ on:
 #   pull_request:
 #     branches: [ master ]
 
-env:
-  # Use docker.io for Docker Hub if empty
-  REGISTRY: 9512220
-  # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ github.repository }}
+# env:
+#   # Use docker.io for Docker Hub if empty
+#   REGISTRY: 9512220
+#   # github.repository as <account>/<repo>
+#   IMAGE_NAME: ${{ github.repository }}
 
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
+    runs-on: ubuntu-18.04
+#     permissions:
+#       contents: read
+#       packages: write
 
     steps:
       - name: Checkout repository
